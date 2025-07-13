@@ -1,0 +1,368 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>FlirtFizz - Swipe Your Spark</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+    /* Custom scrollbar for cards container */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-300 via-purple-400 to-indigo-500 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header
+    class="flex items-center justify-between px-6 py-4 bg-white bg-opacity-30 backdrop-blur-md shadow-md sticky top-0 z-50"
+  >
+    <div class="flex items-center space-x-3">
+      <img
+        alt="FlirtFizz logo, stylized letters F and Z in pink and purple gradient"
+        class="w-12 h-12 rounded-full shadow-lg"
+        height="48"
+        src="https://storage.googleapis.com/a1aa/image/55ea2ff3-97eb-4547-42ba-7b3c583927ad.jpg"
+        width="48"
+      />
+      <h1 class="text-3xl font-extrabold text-white drop-shadow-lg select-none">
+        FlirtFizz
+      </h1>
+    </div>
+    <button
+      aria-label="User profile"
+      class="text-white text-2xl hover:text-yellow-300 transition"
+    >
+      <i class="fas fa-user-circle"></i>
+    </button>
+  </header>
+  <!-- Main Content -->
+  <main
+    class="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 py-8"
+  >
+    <!-- Card Stack Container -->
+    <section
+      class="relative w-full max-w-md h-[600px] sm:h-[650px] md:h-[700px] lg:h-[750px] rounded-3xl shadow-2xl bg-white bg-opacity-90 backdrop-blur-md overflow-hidden"
+      id="card-stack"
+    ></section>
+    <!-- Action Buttons -->
+    <section class="mt-8 flex justify-center space-x-8">
+      <button
+        aria-label="Dislike"
+        class="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-lg flex items-center justify-center text-3xl transition transform active:scale-90"
+        id="dislike-btn"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <button
+        aria-label="Super Like"
+        class="w-16 h-16 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg flex items-center justify-center text-3xl transition transform active:scale-90"
+        id="superlike-btn"
+      >
+        <i class="fas fa-star"></i>
+      </button>
+      <button
+        aria-label="Like"
+        class="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg flex items-center justify-center text-3xl transition transform active:scale-90"
+        id="like-btn"
+      >
+        <i class="fas fa-heart"></i>
+      </button>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer
+    class="text-center py-4 text-white bg-gradient-to-t from-indigo-600 via-purple-700 to-pink-700 select-none"
+  >
+    <p class="text-sm">© 2024 FlirtFizz. Swipe your spark, ignite your fun!</p>
+  </footer>
+  <script>
+    // Sample profiles data
+    const profiles = [
+      {
+        id: 1,
+        name: "Luna",
+        age: 24,
+        bio: "Coffee lover ☕, bookworm 📚, and adventure seeker 🌍.",
+        image:
+          "https://placehold.co/400x600/png?text=Young+woman+with+curly+hair+smiling+in+sunlight+outdoor+portrait",
+      },
+      {
+        id: 2,
+        name: "Max",
+        age: 29,
+        bio: "Guitarist 🎸, foodie 🍣, and dog dad 🐶.",
+        image:
+          "https://placehold.co/400x600/png?text=Handsome+man+with+beard+wearing+glasses+and+smiling+in+park",
+      },
+      {
+        id: 3,
+        name: "Sophie",
+        age: 26,
+        bio: "Yoga enthusiast 🧘‍♀️, traveler ✈️, and plant mom 🌿.",
+        image:
+          "https://placehold.co/400x600/png?text=Smiling+woman+doing+yoga+pose+in+nature+with+sunlight",
+      },
+      {
+        id: 4,
+        name: "Ethan",
+        age: 31,
+        bio: "Tech geek 💻, gamer 🎮, and craft beer lover 🍺.",
+        image:
+          "https://placehold.co/400x600/png?text=Man+with+glasses+and+headphones+playing+video+games",
+      },
+      {
+        id: 5,
+        name: "Maya",
+        age: 22,
+        bio: "Artist 🎨, coffee addict ☕, and sunset chaser 🌅.",
+        image:
+          "https://placehold.co/400x600/png?text=Young+woman+painting+on+canvas+with+colorful+background",
+      },
+      {
+        id: 6,
+        name: "Leo",
+        age: 28,
+        bio: "Fitness junkie 🏋️‍♂️, traveler 🌍, and foodie 🍕.",
+        image:
+          "https://placehold.co/400x600/png?text=Athletic+man+running+on+beach+at+sunrise",
+      },
+      {
+        id: 7,
+        name: "Isabella",
+        age: 25,
+        bio: "Dancer 💃, book lover 📖, and coffee shop hopper ☕.",
+        image:
+          "https://placehold.co/400x600/png?text=Smiling+woman+dancing+in+urban+setting+with+sunlight",
+      },
+      {
+        id: 8,
+        name: "Noah",
+        age: 30,
+        bio: "Photographer 📸, nature lover 🌲, and music fan 🎶.",
+        image:
+          "https://placehold.co/400x600/png?text=Man+holding+camera+in+forest+with+sunlight",
+      },
+      {
+        id: 9,
+        name: "Chloe",
+        age: 27,
+        bio: "Chef 👩‍🍳, traveler ✈️, and dog lover 🐕.",
+        image:
+          "https://placehold.co/400x600/png?text=Woman+cooking+in+modern+kitchen+smiling",
+      },
+      {
+        id: 10,
+        name: "Jack",
+        age: 33,
+        bio: "Entrepreneur 💼, cyclist 🚴‍♂️, and coffee enthusiast ☕.",
+        image:
+          "https://placehold.co/400x600/png?text=Man+with+helmet+and+cycling+gear+smiling+outdoors",
+      },
+    ];
+
+    const cardStack = document.getElementById("card-stack");
+
+    // Create card elements for each profile
+    function createCard(profile, index) {
+      const card = document.createElement("div");
+      card.className =
+        "absolute top-0 left-0 w-full h-full rounded-3xl shadow-xl bg-white overflow-hidden cursor-grab select-none transition-transform duration-300 ease-in-out";
+      card.style.zIndex = profiles.length - index;
+
+      // Card content
+      card.innerHTML = `
+        <img
+          src="${profile.image}"
+          alt="Portrait of ${profile.name}, age ${profile.age}, ${profile.bio}"
+          class="w-full h-4/5 object-cover"
+          draggable="false"
+        />
+        <div class="p-4 bg-gradient-to-t from-white to-transparent absolute bottom-0 w-full">
+          <h2 class="text-2xl font-bold text-gray-900">${profile.name}, <span class="font-normal">${profile.age}</span></h2>
+          <p class="text-gray-700 mt-1">${profile.bio}</p>
+        </div>
+      `;
+
+      // Drag variables
+      let offsetX = 0;
+      let offsetY = 0;
+      let startX = 0;
+      let startY = 0;
+      let isDragging = false;
+
+      // Touch and mouse event handlers
+      function onDragStart(e) {
+        isDragging = true;
+        card.style.transition = "none";
+        startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+        startY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+        document.addEventListener("mousemove", onDragMove);
+        document.addEventListener("touchmove", onDragMove, { passive: false });
+        document.addEventListener("mouseup", onDragEnd);
+        document.addEventListener("touchend", onDragEnd);
+        card.style.cursor = "grabbing";
+      }
+
+      function onDragMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+        const currentY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+        offsetX = currentX - startX;
+        offsetY = currentY - startY;
+        const rotate = offsetX / 15;
+        card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotate}deg)`;
+      }
+
+      function onDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        card.style.cursor = "grab";
+
+        // Threshold for swipe
+        const threshold = 120;
+        if (offsetX > threshold) {
+          swipe("like");
+        } else if (offsetX < -threshold) {
+          swipe("dislike");
+        } else if (offsetY < -threshold) {
+          swipe("superlike");
+        } else {
+          // Reset position
+          card.style.transition = "transform 0.3s ease";
+          card.style.transform = "";
+        }
+
+        document.removeEventListener("mousemove", onDragMove);
+        document.removeEventListener("touchmove", onDragMove);
+        document.removeEventListener("mouseup", onDragEnd);
+        document.removeEventListener("touchend", onDragEnd);
+      }
+
+      card.addEventListener("mousedown", onDragStart);
+      card.addEventListener("touchstart", onDragStart, { passive: true });
+
+      // Swipe function to animate and remove card
+      function swipe(action) {
+        card.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+        if (action === "like") {
+          card.style.transform = `translate(${window.innerWidth}px, ${offsetY}px) rotate(30deg)`;
+        } else if (action === "dislike") {
+          card.style.transform = `translate(-${window.innerWidth}px, ${offsetY}px) rotate(-30deg)`;
+        } else if (action === "superlike") {
+          card.style.transform = `translate(${offsetX}px, -${window.innerHeight}px) rotate(0deg)`;
+        }
+        card.style.opacity = "0";
+
+        setTimeout(() => {
+          card.remove();
+          profiles.shift();
+          if (profiles.length === 0) {
+            showNoMoreCards();
+          } else {
+            renderCards();
+          }
+          showToast(action);
+        }, 500);
+      }
+
+      // Expose swipe function for buttons
+      card.swipe = swipe;
+
+      return card;
+    }
+
+    // Render cards stack
+    function renderCards() {
+      cardStack.innerHTML = "";
+      for (let i = 0; i < Math.min(profiles.length, 3); i++) {
+        const card = createCard(profiles[i], i);
+        // Slight scale and translate for stacked effect
+        card.style.transform = `scale(${1 - i * 0.05}) translateY(${i * 15}px)`;
+        cardStack.appendChild(card);
+      }
+    }
+
+    // Show no more cards message
+    function showNoMoreCards() {
+      cardStack.innerHTML = `
+        <div class="flex flex-col items-center justify-center h-full text-center px-6">
+          <img
+            src="https://placehold.co/150x150/png?text=No+More+Profiles"
+            alt="Illustration of an empty box with a heart and a sad face indicating no more profiles"
+            class="mb-6"
+          />
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">No more profiles</h2>
+          <p class="text-gray-600">Check back later or update your preferences to find more matches!</p>
+        </div>
+      `;
+    }
+
+    // Toast notification
+    const toast = document.createElement("div");
+    toast.className =
+      "fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-90 backdrop-blur-md px-6 py-3 rounded-full shadow-lg text-gray-900 text-lg font-semibold opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center space-x-3";
+    document.body.appendChild(toast);
+
+    function showToast(action) {
+      let icon = "";
+      let message = "";
+      if (action === "like") {
+        icon = '<i class="fas fa-heart text-red-500"></i>';
+        message = "You liked this profile!";
+      } else if (action === "dislike") {
+        icon = '<i class="fas fa-times text-red-600"></i>';
+        message = "You disliked this profile!";
+      } else if (action === "superlike") {
+        icon = '<i class="fas fa-star text-blue-500"></i>';
+        message = "You super liked this profile!";
+      }
+      toast.innerHTML = `${icon}<span>${message}</span>`;
+      toast.style.opacity = "1";
+      toast.style.pointerEvents = "auto";
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.pointerEvents = "none";
+      }, 2000);
+    }
+
+    // Button handlers
+    const dislikeBtn = document.getElementById("dislike-btn");
+    const likeBtn = document.getElementById("like-btn");
+    const superlikeBtn = document.getElementById("superlike-btn");
+
+    dislikeBtn.addEventListener("click", () => {
+      const topCard = cardStack.querySelector("div:last-child");
+      if (topCard && topCard.swipe) topCard.swipe("dislike");
+    });
+
+    likeBtn.addEventListener("click", () => {
+      const topCard = cardStack.querySelector("div:last-child");
+      if (topCard && topCard.swipe) topCard.swipe("like");
+    });
+
+    superlikeBtn.addEventListener("click", () => {
+      const topCard = cardStack.querySelector("div:last-child");
+      if (topCard && topCard.swipe) topCard.swipe("superlike");
+    });
+
+    // Initial render
+    renderCards();
+  </script>
+</body>
+</html>
